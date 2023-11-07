@@ -1,94 +1,81 @@
 <h1>
-  List of all actors
+  List of all actors
 </h1>
 
-<hr>
+<form action="/insert_actor_record" method="post">
+  <div>
+    <label for="name_field">Name</label>
+    <input id="name_field" type="text" name="the_name">
+  </div>
 
-<form action="/insert_actor" method="post">
-  <div>
-    <label for="name_box">
-      Name
-    </label>
+  <div>
+    <label for="dob_field">Dob</label>
+    <input id="dob_field" type="date" name="the_dob">
+  </div>
 
-    <input type="text" id="name_box" name="query_name">
-  </div>
+  <div>
+    <label for="bio_field">Bio</label>
+    <input id="bio_field" type="text" name="the_bio">
+  </div>
 
-  <div>
-    <label for="dob_box">
-      Dob
-    </label>
+  <div>
+    <label for="image_field">Image</label>
+    <input id="image_field" type="text" name="the_image">
+  </div>
 
-    <input type="date" id="dob_box" name="query_dob">
-  </div>
-
-  <div>
-    <label for="bio_box">
-      Bio
-    </label>
-
-    <textarea id="bio_box" name="query_bio" rows="3"></textarea>
-  </div>
-
-  <div>
-    <label for="image_box">
-      Image
-    </label>
-
-    <input type="text" id="image_box" name="query_image">
-  </div>
-
-  <button>
-    Create actor
-  </button>
+  <button>
+    Create actor
+  </button>
+  
 </form>
 
 <hr>
 
 <table border="1">
-  <tr>
-    <th>
-      ID
-    </th>
+  <tr>
+    <th>
+      ID
+    </th>
 
-    <th>
-      Image
-    </th>
+    <th>
+      Image
+    </th>
 
-    <th>
-      Name
-    </th>
+    <th>
+      Name
+    </th>
 
-    <th>
-      Dob
-    </th>
+    <th>
+      Dob
+    </th>
 
-    <th>
-    </th>
-  </tr>
+    <th>
+    </th>
+  </tr>
 
-  <% @list_of_actors.each do |actor| %>
-  <tr>
-    <td>
-      <%= actor.id %>
-    </td>
+  <% @list_of_actors.each do |an_actor| %>
+  <tr>
+    <td>
+      <%= an_actor.id %>
+    </td>
 
-    <td>
-      <img src="<%= actor.image %>" style="width:250px;">
-    </td>
+    <td>
+      <img src="<%= an_actor.image %>" style="width:250px;">
+    </td>
 
-    <td>
-      <%= actor.name %>
-    </td>
+    <td>
+      <%= an_actor.name %>
+    </td>
 
-    <td>
-      <%= actor.dob %>
-    </td>
+    <td>
+      <%= an_actor.dob %>
+    </td>
 
-    <td>
-      <a href="/actors/<%= actor.id %>">
-        Show details
-      </a>
-    </td>
-  </tr>
-  <% end %>
+    <td>
+      <a href="/actors/<%= an_actor.id %>">
+        Show details
+      </a>
+    </td>
+  </tr>
+  <% end %>
 </table>
