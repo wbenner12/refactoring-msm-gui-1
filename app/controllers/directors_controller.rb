@@ -1,75 +1,59 @@
-class DirectorsController < ApplicationController
+class MoviesController < ApplicationController
   def index
-    @list_of_directors = Director.all.order({ :created_at => :desc })
+    @list_of_movies = Movie.all.order({ :created_at => :desc })
 
-    render({ :template => "director_templates/index" })
+    render({ :template => "movie_templates/index" })
   end
 
   def show
     the_id = params.fetch("path_id")
-    @the_director = Director.find(the_id)
+    @the_movie = Movie.find(the_id)
 
-    render({ :template => "director_templates/show" })
+    render({ :template => "movie_templates/show" })
   end
 
   def create
-    @the_director = Director.new
-    @the_director.name = params.fetch("query_name")
-    @the_director.dob = params.fetch("query_dob")
-    @the_director.bio = params.fetch("query_bio")
-    @the_director.image = params.fetch("query_image")
+    @the_movie = Movie.new
+    @the_movie.title = params.fetch("query_title")
+    @the_movie.year = params.fetch("query_year")
+    @the_movie.duration = params.fetch("query_duration")
+    @the_movie.description = params.fetch("query_description")
+    @the_movie.image = params.fetch("query_image")
+    @the_movie.director_id = params.fetch("query_director_id")
 
-    if @the_director.valid?
-      @the_director.save
-      redirect_to("/directors", { :notice => "Director created successfully." })
+    if @the_movie.valid?
+      @the_movie.save
+      redirect_to("/movies", { :notice => "Movie created successfully." })
     else
-      redirect_to("/directors", { :notice => "Director failed to create successfully." })
+      redirect_to("/movies", { :notice => "Movie failed to create successfully." })
     end
   end
 
   def update
     the_id = params.fetch("path_id")
-    @the_director = Director.find(the_id)
+    @the_movie = Movie.find(the_id)
 
-    @the_director.name = params.fetch("query_name")
-    @the_director.dob = params.fetch("query_dob")
-    @the_director.bio = params.fetch("query_bio")
-    @the_director.image = params.fetch("query_image")
+    @the_movie.title = params.fetch("query_title")
+    @the_movie.year = params.fetch("query_year")
+    @the_movie.duration = params.fetch("query_duration")
+    @the_movie.description = params.fetch("query_description")
+    @the_movie.image = params.fetch("query_image")
+    @the_movie.director_id = params.fetch("query_director_id")
 
-    if @the_director.valid?
-      @the_director.save
-      redirect_to("/directors/#{@the_director.id}", { :notice => "Director updated successfully."} )
+    if @the_movie.valid?
+      @the_movie.save
+      redirect_to("/movies/#{@the_movie.id}", { :notice => "Movie updated successfully."} )
     else
-      redirect_to("/directors/#{@the_director.id}", { :alert => "Director failed to update successfully." })
+      redirect_to("/movies/#{@the_movie.id}", { :alert => "Movie failed to update successfully." })
     end
   end
 
   def destroy
     the_id = params.fetch("path_id")
-    @the_director = Director.find(the_id)
+    @the_movie = Movie.find(the_id)
 
-    @the_director.destroy
+    @the_movie.destroy
 
-    redirect_to("/directors", { :notice => "Director deleted successfully."} )
-  end
-
-  def max_dob
-    @youngest = Director.
-      all.
-      where.not({ :dob => nil }).
-      order({ :dob => :desc }).
-      at(0)
-
-    render({ :template => "director_templates/youngest" })
-  end
-
-  def min_dob
-    @eldest = Director.
-      all.
-      where.not({ :dob => nil }).
-      order({ :dob => :asc }).
-      at(0)
-
-    render({ :template => "director_templates/eldest" })
+    redirect_to("/movies", { :notice => "Movie deleted successfully."} )
   end
 end
